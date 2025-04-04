@@ -1,11 +1,18 @@
 body {
-    background-color: #f3f4f6;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
     font-family: 'Kanit', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    animation: gradient 10s infinite alternate;
+}
+
+@keyframes gradient {
+    0% {background-color: #ff9a9e;}
+    50% {background-color: #fad0c4;}
+    100% {background-color: #ff9a9e;}
 }
 
 #app {
@@ -15,11 +22,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     width: 700px;
     text-align: center;
-}
-
-h1 {
-    font-family: 'Fugaz One', cursive;
-    color: #FF4081;
+    position: relative;
 }
 
 .sparkle-button {
@@ -34,4 +37,11 @@ h1 {
 
 .sparkle-button:hover {
     background-color: #FF4081;
+}
+
+.manage-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #FF4081;
 }
