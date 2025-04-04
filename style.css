@@ -10,7 +10,7 @@ body {
 
 #app {
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     width: 90%;
@@ -33,7 +33,7 @@ h1 {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .styled-button:hover {
@@ -58,18 +58,22 @@ h1 {
     font-size: 14px;
 }
 
-.manage-link {
-    display: block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #FF4081;
-    font-size: 18px;
+.select-container {
+    margin-bottom: 15px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .final-result {
     font-size: 30px;
     color: #FF4081;
     animation: sparkle 0.5s infinite alternate;
+    margin-top: 20px;
 }
 
 @keyframes sparkle {
@@ -82,4 +86,13 @@ h1 {
     background-color: #FFFACD;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 15px;
+}
+
+.manage-link {
+    display: block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: #FF4081;
+    font-size: 18px;
 }
