@@ -43,4 +43,4 @@ deleteTaskButton.addEventListener('click', () => {
     loadTasks();
 });
 
-loadTasks();
+loadTasks()
