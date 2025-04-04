@@ -1,53 +1,99 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f4f6;
+    font-family: 'Kanit', sans-serif;
+    background-color: #FFF0E5;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
-#root {
+#app {
     background: white;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 450px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-h1 {
-    color: #3b82f6;
+.header h1 {
+    color: #FF6F61;
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #707070;
     margin-bottom: 20px;
 }
 
-input {
+.form-container {
+    background-color: #FFF6F6;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #FF6F61;
+    margin-bottom: 20px;
+}
+
+input, select {
     padding: 10px;
-    width: 80%;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
+    width: 85%;
+    border: 2px solid #FF6F61;
+    border-radius: 12px;
     margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 16px;
+    background-color: #FFFAF0;
 }
 
 button {
-    background-color: #3b82f6;
+    background-color: #FF6F61;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 15px;
-    font-size: 14px;
+    transition: all 0.3s;
 }
 
 button:hover {
-    background-color: #2563eb;
+    background-color: #FF4081;
+    transform: scale(1.05);
 }
 
-#result p {
-    font-size: 16px;
-    color: #374151;
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #FF6F61;
+}
+
+#previousResults {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #FFB6C1;
+    font-size: 14px;
+    color: #707070;
+}
+
+/* เอฟเฟกต์ไฟสีแบบคอนเสิร์ต */
+body::after {
+    content: "";
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 0, 128, 0.3), transparent), 
+                radial-gradient(circle at 80% 20%, rgba(255, 204, 0, 0.3), transparent),
+                radial-gradient(circle at 20% 80%, rgba(0, 128, 255, 0.3), transparent);
+    animation: glow 4s infinite alternate;
+    z-index: -1;
+}
+
+@keyframes glow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
 }
