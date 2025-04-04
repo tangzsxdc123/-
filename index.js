@@ -35,34 +35,17 @@ generateButton.addEventListener('click', () => {
 
     const interval = setInterval(() => {
         currentNumber = Math.floor(Math.random() * task.maxQueue) + 1;
-        resultDiv.innerHTML = `<strong>กำลังสุ่ม: ${currentNumber}</strong>`;
+        resultDiv.innerHTML = `<div class="final-result">กำลังสุ่ม: ${currentNumber}</div>`;
     }, 80);
 
     setTimeout(() => {
         clearInterval(interval);
-        resultDiv.innerHTML = `<div class="final-result">คิวที่สุ่มได้: <strong>${currentNumber}</strong></div>`;
-        resultDiv.classList.add("highlight");
-
-        setTimeout(() => {
-            resultDiv.classList.remove("highlight");
-        }, 2000);
+        resultDiv.innerHTML = `<div class="final-result highlight">คิวที่สุ่มได้: <strong>${currentNumber}</strong></div>`;
 
         if (!task.history) task.history = [];
         task.history.push({ name, queueNumber: currentNumber, timestamp: new Date().toLocaleString() });
         localStorage.setItem('taskList', JSON.stringify(tasks));
     }, 3000);
-});
-
-viewHistoryButton.addEventListener('click', () => {
-    const selectedTaskName = taskSelector.value;
-    const task = tasks.find(t => t.name === selectedTaskName);
-
-    if (!task || !task.history) return;
-
-    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${selectedTaskName}</h3>`;
-    task.history.forEach(entry => {
-        previousResultsDiv.innerHTML += `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
-    });
 });
 
 loadTasks();
