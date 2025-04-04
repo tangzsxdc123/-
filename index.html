@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ร้านยยมือทองกดบัตร</title>
+    <title>ร้านยยมือทองกดบัตร - หน้าแรก</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&family=Fugaz+One&display=swap">
 </head>
@@ -17,32 +17,19 @@
                 <label for="taskSelector">เลือกงาน:</label>
                 <select id="taskSelector"></select>
                 <button id="viewHistoryButton" class="sparkle-button">📜 ดูประวัติ</button>
-                <button id="deleteTaskButton" class="sparkle-button">🗑️ ลบงาน</button>
             </div>
             
             <div class="input-container">
                 <input id="nameInput" placeholder="กรอกชื่อของคุณ">
                 <button id="generateButton" class="sparkle-button">🎲 สุ่มคิว</button>
             </div>
-            
-            <div class="add-task-container">
-                <input id="newTaskInput" placeholder="เพิ่มงานใหม่...">
-                <input id="queueCountInput" placeholder="จำนวนคิว (ตัวเลข)">
-                <button id="addTaskButton" class="sparkle-button">➕ เพิ่มงานใหม่</button>
-            </div>
         </div>
 
         <div id="result"></div>
         <div id="previousResults"></div>
 
-        <div id="taskListSection">
-            <h2>📋 รายการงานทั้งหมด</h2>
-            <ul id="taskList"></ul>
-        </div>
+        <a href="manage.html" class="manage-link">🔧 จัดการงาน</a>
     </div>
-    <script src="script.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
-
-<script src="index.js"></script>
-
