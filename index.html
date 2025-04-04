@@ -12,12 +12,21 @@
         </div>
 
         <div class="form-container">
-            <select id="taskSelector"></select>
-            <input id="nameInput" placeholder="กรอกชื่อของคุณ">
-            <button id="generateButton">สุ่มคิว</button>
-            <input id="newTaskInput" placeholder="เพิ่มงานใหม่...">
-            <input id="queueCountInput" placeholder="จำนวนคิว (ตัวเลข)">
-            <button id="addTaskButton">เพิ่มงานใหม่</button>
+            <div class="select-container">
+                <label for="taskSelector">เลือกงาน:</label>
+                <select id="taskSelector"></select>
+            </div>
+            
+            <div class="input-container">
+                <input id="nameInput" placeholder="กรอกชื่อของคุณ">
+                <button id="generateButton">สุ่มคิว</button>
+            </div>
+            
+            <div class="add-task-container">
+                <input id="newTaskInput" placeholder="เพิ่มงานใหม่...">
+                <input id="queueCountInput" placeholder="จำนวนคิว (ตัวเลข)">
+                <button id="addTaskButton">เพิ่มงานใหม่</button>
+            </div>
         </div>
 
         <div id="result"></div>
