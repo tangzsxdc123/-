@@ -2,6 +2,7 @@ const taskSelector = document.getElementById('taskSelector');
 const nameInput = document.getElementById('nameInput');
 const generateButton = document.getElementById('generateButton');
 const addTaskButton = document.getElementById('addTaskButton');
+const viewHistoryButton = document.getElementById('viewHistoryButton');
 const newTaskInput = document.getElementById('newTaskInput');
 const queueCountInput = document.getElementById('queueCountInput');
 const taskList = document.getElementById('taskList');
@@ -23,13 +24,21 @@ function loadTasks() {
         option.value = task.name;
         option.textContent = `${task.name} (คิวสูงสุด ${task.maxQueue})`;
         taskSelector.appendChild(option);
-
-        const li = document.createElement('li');
-        li.textContent = `${task.name} - คิวสูงสุด ${task.maxQueue}`;
-
-        taskList.appendChild(li);
     });
 }
+
+function displayPreviousResults(task) {
+    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${task.name}</h3>`;
+    task.history.forEach(result => {
+        previousResultsDiv.innerHTML += `<p>ชื่อ: ${result.name} | คิวที่สุ่มได้: ${result.queueNumber} | เวลา: ${result.timestamp}</p>`;
+    });
+}
+
+viewHistoryButton.addEventListener('click', () => {
+    const selectedTaskName = taskSelector.value;
+    const task = tasks.find(t => t.name === selectedTaskName);
+    if (task) displayPreviousResults(task);
+});
 
 addTaskButton.addEventListener('click', () => {
     const newTaskName = newTaskInput.value.trim();
@@ -57,11 +66,6 @@ generateButton.addEventListener('click', () => {
         return;
     }
 
-    if (task.history.some(record => record.name === name)) {
-        alert('ชื่อนี้สุ่มไปแล้ว!');
-        return;
-    }
-
     const randomQueue = Math.floor(Math.random() * task.maxQueue) + 1;
 
     task.usedNumbers.push(randomQueue);
@@ -69,15 +73,7 @@ generateButton.addEventListener('click', () => {
     saveTasks();
 
     resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
-    displayPreviousResults(task);
     nameInput.value = '';
 });
-
-function displayPreviousResults(task) {
-    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${task.name}</h3>`;
-    task.history.forEach(result => {
-        previousResultsDiv.innerHTML += `<p>ชื่อ: ${result.name} | คิวที่สุ่มได้: ${result.queueNumber} | เวลา: ${result.timestamp}</p>`;
-    });
-}
 
 loadTasks();
