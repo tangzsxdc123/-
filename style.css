@@ -40,7 +40,6 @@ input, select {
     font-size: 14px;
 }
 
-/* ปุ่มแบบวิบวับ */
 .sparkle-button {
     background-color: #FF6F61;
     color: white;
@@ -58,37 +57,10 @@ input, select {
     background-color: #FF4081;
 }
 
-/* เอฟเฟกต์วิบวับ */
-.sparkle-button::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, white, transparent);
-    opacity: 0.6;
-    animation: sparkle 2s infinite;
-}
-
-@keyframes sparkle {
-    0%, 100% { transform: scale(0); }
-    50% { transform: scale(1); }
-}
-
 #result, #previousResults {
     background: white;
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.flashing {
-    animation: flashing 0.1s infinite alternate;
-}
-
-@keyframes flashing {
-    0% { background-color: #ff6f61; }
-    100% { background-color: #ff4081; }
 }
