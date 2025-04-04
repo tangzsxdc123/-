@@ -17,32 +17,6 @@ body {
     text-align: center;
 }
 
-.header h1 {
-    color: #FF6F61;
-    margin-bottom: 5px;
-}
-
-.header p {
-    color: #707070;
-    margin-bottom: 20px;
-}
-
-.form-container {
-    background-color: #FDFDFD;
-    padding: 20px;
-    border-radius: 12px;
-    border: 2px solid #FF6F61;
-    margin-bottom: 20px;
-}
-
-input, select {
-    padding: 10px;
-    width: 80%;
-    margin: 10px 0;
-    border: 1px solid #FF6F61;
-    border-radius: 8px;
-}
-
 button {
     background-color: #FF6F61;
     color: white;
@@ -58,27 +32,11 @@ button:hover {
     background-color: #FF4081;
 }
 
-#taskListSection {
-    margin-top: 20px;
-}
-
-#taskListSection h2 {
-    color: #FF6F61;
-    margin-bottom: 10px;
-}
-
-#taskList {
-    list-style-type: none;
-    padding: 0;
-}
-
-#taskList li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #FFF0F0;
-    margin-bottom: 8px;
+input, select {
     padding: 10px;
+    width: 85%;
+    margin: 10px 0;
+    border: 1px solid #FF6F61;
     border-radius: 8px;
 }
 
