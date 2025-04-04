@@ -96,3 +96,20 @@ h1 {
     color: #FF4081;
     font-size: 18px;
 }
+.check-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.check-link a {
+    text-decoration: none;
+    color: #FF4081;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.check-link a:hover {
+    color: #FF6F61;
+}
+
