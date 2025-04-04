@@ -29,7 +29,7 @@ addTaskButton.addEventListener('click', () => {
         return;
     }
 
-    tasks.push({ name: newTaskName, maxQueue, usedNumbers: [], history: [] });
+    tasks.push({ name: newTaskName, maxQueue, history: [] });
     saveTasks();
     loadTasks();
     newTaskInput.value = '';
@@ -43,4 +43,4 @@ deleteTaskButton.addEventListener('click', () => {
     loadTasks();
 });
 
-loadTasks()
+loadTasks();
