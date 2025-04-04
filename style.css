@@ -1,6 +1,6 @@
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #F0F8FF;
+    background-color: #E0F2FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,8 +13,34 @@ body {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 450px;
+    width: 500px;
     text-align: center;
+}
+
+.header h1 {
+    color: #FF6F61;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #707070;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background-color: #FDFDFD;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #FF6F61;
+    margin-bottom: 20px;
+}
+
+input, select {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #FF6F61;
+    border-radius: 8px;
 }
 
 button {
@@ -25,10 +51,35 @@ button {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
 button:hover {
     background-color: #FF4081;
+}
+
+#taskListSection {
+    margin-top: 20px;
+}
+
+#taskListSection h2 {
+    color: #FF6F61;
+    margin-bottom: 10px;
+}
+
+#taskList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#taskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFF0F0;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 #taskList button {
