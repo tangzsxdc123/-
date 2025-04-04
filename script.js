@@ -8,15 +8,15 @@ const min = 1;
 const max = 10;
 let availableNumbers = Array.from({length: max - min + 1}, (_, i) => i + min);
 
-function loadPreviousResults(task) {
-    const savedData = localStorage.getItem(`randomQueueResults-${task}`);
-    return savedData ? JSON.parse(savedData) : [];
-}
-
 function saveResult(task, name, queueNumber) {
     const previousResults = loadPreviousResults(task);
     previousResults.push({ name, queueNumber, timestamp: new Date().toLocaleString() });
     localStorage.setItem(`randomQueueResults-${task}`, JSON.stringify(previousResults));
+}
+
+function loadPreviousResults(task) {
+    const savedData = localStorage.getItem(`randomQueueResults-${task}`);
+    return savedData ? JSON.parse(savedData) : [];
 }
 
 function displayPreviousResults(task) {
@@ -28,12 +28,22 @@ function displayPreviousResults(task) {
     });
 }
 
+function isNameUsed(task, name) {
+    const previousResults = loadPreviousResults(task);
+    return previousResults.some(result => result.name === name);
+}
+
 generateButton.addEventListener('click', () => {
-    const name = nameInput.value;
+    const name = nameInput.value.trim();
     const task = taskSelector.value;
 
     if (!name) {
         alert('กรุณากรอกชื่อก่อน');
+        return;
+    }
+
+    if (isNameUsed(task, name)) {
+        alert('ชื่อนี้ถูกใช้ไปแล้วสำหรับงานนี้!');
         return;
     }
 
@@ -42,20 +52,36 @@ generateButton.addEventListener('click', () => {
         return;
     }
 
+    let count = 0;
+    const totalDuration = 5000; // ลุ้น 5 วินาที
+    const intervalDuration = 100; // ความถี่ในการแสดงผลเลขปลอม (0.1 วินาที)
+
     const randomIndex = Math.floor(Math.random() * availableNumbers.length);
     const randomQueue = availableNumbers.splice(randomIndex, 1)[0];
     
-    resultDiv.innerHTML = `ชื่อ: ${name} <br> คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
-    
-    saveResult(task, name, randomQueue);
-    displayPreviousResults(task);
+    const interval = setInterval(() => {
+        count += intervalDuration;
+
+        // แสดงผลเลขปลอมระหว่างลุ้น
+        const fakeRandomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        resultDiv.innerHTML = `ชื่อ: ${name} <br> กำลังสุ่มคิว... <strong>${fakeRandomNumber}</strong>`;
+        
+        if (count >= totalDuration) {
+            clearInterval(interval);
+
+            // แสดงผลที่สุ่มได้จริงเมื่อครบเวลา
+            resultDiv.innerHTML = `ชื่อ: ${name} <br> คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
+            
+            // บันทึกผลลัพธ์ลงใน LocalStorage
+            saveResult(task, name, randomQueue);
+            displayPreviousResults(task);
+        }
+    }, intervalDuration);
 });
 
-// แสดงประวัติของงานที่เลือกเมื่อเปลี่ยนงาน
 taskSelector.addEventListener('change', () => {
     const task = taskSelector.value;
     displayPreviousResults(task);
 });
 
-// โหลดประวัติของงานที่เลือกครั้งแรกเมื่อเปิดหน้าเว็บ
 displayPreviousResults(taskSelector.value);
