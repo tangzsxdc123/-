@@ -71,8 +71,13 @@ viewHistoryButton.addEventListener('click', () => {
 
     previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มของ ${selectedTaskName}</h3>`;
     
+    // เคลียร์เนื้อหาเก่าก่อนแสดงใหม่
+    previousResultsDiv.innerHTML = '';
+
     task.history.forEach(entry => {
-        previousResultsDiv.innerHTML += `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
+        const entryDiv = document.createElement('div');
+        entryDiv.innerHTML = `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
+        previousResultsDiv.appendChild(entryDiv);
     });
 });
 
