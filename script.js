@@ -27,25 +27,7 @@ function loadTasks() {
         const li = document.createElement('li');
         li.textContent = `${task.name} - คิวสูงสุด ${task.maxQueue}`;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'ลบ';
-        deleteButton.addEventListener('click', () => deleteTask(task.name));
-
-        li.appendChild(deleteButton);
         taskList.appendChild(li);
-    });
-}
-
-function deleteTask(taskName) {
-    tasks = tasks.filter(task => task.name !== taskName);
-    saveTasks();
-    loadTasks();
-}
-
-function displayPreviousResults(task) {
-    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${task.name}</h3>`;
-    task.history.forEach(result => {
-        previousResultsDiv.innerHTML += `<p>ชื่อ: ${result.name} | คิวที่สุ่มได้: ${result.queueNumber} | เวลา: ${result.timestamp}</p>`;
     });
 }
 
@@ -80,39 +62,22 @@ generateButton.addEventListener('click', () => {
         return;
     }
 
-    const availableNumbers = Array.from({ length: task.maxQueue }, (_, i) => i + 1)
-        .filter(num => !task.usedNumbers.includes(num));
+    const randomQueue = Math.floor(Math.random() * task.maxQueue) + 1;
 
-    if (availableNumbers.length === 0) {
-        alert('คิวเต็มหมดแล้ว!');
-        return;
-    }
+    task.usedNumbers.push(randomQueue);
+    task.history.push({ name, queueNumber: randomQueue, timestamp: new Date().toLocaleString() });
+    saveTasks();
 
-    let count = 0;
-    const duration = 5000;
-    const intervalDuration = 100;
-    const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-    const randomQueue = availableNumbers[randomIndex];
-
-    const interval = setInterval(() => {
-        count += intervalDuration;
-        const fakeQueue = Math.floor(Math.random() * task.maxQueue) + 1;
-        resultDiv.innerHTML = `กำลังสุ่มคิว... <strong>${fakeQueue}</strong>`;
-        resultDiv.classList.add('flashing');
-
-        if (count >= duration) {
-            clearInterval(interval);
-            resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
-            resultDiv.classList.remove('flashing');
-
-            task.usedNumbers.push(randomQueue);
-            task.history.push({ name, queueNumber: randomQueue, timestamp: new Date().toLocaleString() });
-
-            saveTasks();
-            displayPreviousResults(task);
-            nameInput.value = '';
-        }
-    }, intervalDuration);
+    resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
+    displayPreviousResults(task);
+    nameInput.value = '';
 });
+
+function displayPreviousResults(task) {
+    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${task.name}</h3>`;
+    task.history.forEach(result => {
+        previousResultsDiv.innerHTML += `<p>ชื่อ: ${result.name} | คิวที่สุ่มได้: ${result.queueNumber} | เวลา: ${result.timestamp}</p>`;
+    });
+}
 
 loadTasks();
