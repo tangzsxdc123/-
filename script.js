@@ -6,7 +6,6 @@ const newTaskInput = document.getElementById('newTaskInput');
 const queueCountInput = document.getElementById('queueCountInput');
 const taskList = document.getElementById('taskList');
 const resultDiv = document.getElementById('result');
-const previousResultsDiv = document.getElementById('previousResults');
 
 let tasks = JSON.parse(localStorage.getItem('taskList')) || [];
 
@@ -51,18 +50,54 @@ addTaskButton.addEventListener('click', () => {
         return;
     }
 
-    if (tasks.some(task => task.name === newTaskName)) {
-        alert('งานนี้มีอยู่แล้ว!');
+    tasks.push({ name: newTaskName, maxQueue, usedNumbers: [], history: [] });
+    saveTasks();
+    loadTasks();
+    newTaskInput.value = '';
+    queueCountInput.value = '';
+});
+
+generateButton.addEventListener('click', () => {
+    const selectedTaskName = taskSelector.value;
+    const task = tasks.find(t => t.name === selectedTaskName);
+    const name = nameInput.value.trim();
+
+    if (!task || !name) {
+        alert('กรุณาเลือกงานและกรอกชื่อของคุณ');
         return;
     }
 
-    const newTask = { name: newTaskName, maxQueue, usedNumbers: [], history: [] };
-    tasks.push(newTask);
-    saveTasks();
-    loadTasks();
+    const availableNumbers = Array.from({ length: task.maxQueue }, (_, i) => i + 1)
+        .filter(num => !task.usedNumbers.includes(num));
 
-    newTaskInput.value = '';
-    queueCountInput.value = '';
+    if (availableNumbers.length === 0) {
+        alert('คิวเต็มหมดแล้ว!');
+        return;
+    }
+
+    let interval = 0;
+    let count = 0;
+    const duration = 5000; // ลุ้นเป็นเวลา 5 วินาที
+    const intervalDuration = 100;
+
+    const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+    const randomQueue = availableNumbers[randomIndex];
+
+    interval = setInterval(() => {
+        count += intervalDuration;
+
+        const fakeQueue = Math.floor(Math.random() * task.maxQueue) + 1;
+        resultDiv.innerHTML = `กำลังสุ่มคิว... <strong>${fakeQueue}</strong>`;
+        resultDiv.classList.add('flashing');
+
+        if (count >= duration) {
+            clearInterval(interval);
+            resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
+            resultDiv.classList.remove('flashing');
+            task.usedNumbers.push(randomQueue);
+            saveTasks();
+        }
+    }, intervalDuration);
 });
 
 loadTasks();
