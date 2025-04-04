@@ -1,5 +1,7 @@
 body {
-    background-color: #F0F8FF;
+    background-image: url('https://cdn.pixabay.com/photo/2016/11/23/14/45/audience-1850119_1280.jpg');
+    background-size: cover;
+    background-attachment: fixed;
     font-family: 'Kanit', sans-serif;
     display: flex;
     justify-content: center;
@@ -9,19 +11,65 @@ body {
 }
 
 #app {
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     width: 700px;
     text-align: center;
 }
 
-.flashing {
-    animation: flashing 0.1s infinite alternate;
+.header h1 {
+    font-family: 'Fugaz One', cursive;
+    color: #FF4081;
+    margin-bottom: 5px;
+    font-size: 32px;
 }
 
-@keyframes flashing {
-    0% { background-color: #ff6f61; }
-    100% { background-color: #ffa726; }
+.header p {
+    color: #707070;
+    margin-bottom: 20px;
+}
+
+input, select {
+    padding: 10px;
+    width: 75%;
+    margin: 10px 0;
+    border: 2px solid #FF4081;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+button {
+    background-color: #FF4081;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Kanit', sans-serif;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #FF6F61;
+}
+
+#taskList button {
+    background-color: #FF0000;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#result, #previousResults {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
