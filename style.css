@@ -1,6 +1,6 @@
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #F0F8FF;
+    background-color: #E0F2FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,44 +13,23 @@ body {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 500px;
+    width: 600px;
     text-align: center;
 }
 
-.header h1 {
-    color: #FF6F61;
-    margin-bottom: 5px;
-}
-
-.header p {
-    color: #707070;
-    margin-bottom: 20px;
-}
-
-.form-container {
-    padding: 20px;
-    border: 1px solid #FF6F61;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    background-color: #FFF0F0;
-}
-
-.select-container, .input-container, .add-task-container {
-    margin-bottom: 15px;
-}
-
 input, select {
-    padding: 10px;
-    width: 80%;
+    padding: 15px;
+    width: 85%;
     margin: 10px 0;
-    border: 1px solid #FF6F61;
-    border-radius: 8px;
+    border: 2px solid #FF6F61;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
 button {
     background-color: #FF6F61;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -68,5 +47,4 @@ button:hover {
     padding: 5px 10px;
     color: white;
     cursor: pointer;
-    margin-left: 10px;
-}
+    margin-left: 10
