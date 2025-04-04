@@ -25,26 +25,8 @@ button {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 10px;
 }
 
 button:hover {
     background-color: #FF4081;
-}
-
-input, select {
-    padding: 10px;
-    width: 85%;
-    margin: 10px 0;
-    border: 1px solid #FF6F61;
-    border-radius: 8px;
-}
-
-#taskList button {
-    background-color: #FF0000;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: white;
-    cursor: pointer;
 }
