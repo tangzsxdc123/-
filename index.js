@@ -83,7 +83,7 @@ viewHistoryButton.addEventListener('click', () => {
 
 loadTasks();
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyd9mJSPBHAYZPvHRW87YIk7I7g7YBpeiI1_XgidOQcxGTj7hIGtzH1zqjPGtKOwjtS/exec";
+const API_URL = "https://script.google.com/macros/library/d/17N-8RsbdTYfF04KjBxxUAuU0BFUTx-KOe0Iq51gu7LON-WWctbey69Au/3";
 
 // ฟังก์ชันโหลดข้อมูลงานทั้งหมดจาก Google Sheets
 async function loadTasksFromSheet() {
