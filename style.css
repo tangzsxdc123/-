@@ -11,7 +11,7 @@ body {
 }
 
 #app {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -40,30 +40,45 @@ input, select {
     font-size: 14px;
 }
 
-button {
-    background-color: #FF4081;
-    color: white;
-    padding: 8px 15px;
+/* ปุ่มแบบทันสมัย */
+.modern-button {
+    background: linear-gradient(145deg, #FF4081, #FF6F61);
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 10px 20px;
+    color: white;
     cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Kanit', sans-serif;
     font-size: 14px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    font-family: 'Kanit', sans-serif;
 }
 
-button:hover {
-    background-color: #FF6F61;
+.modern-button:hover {
+    background: linear-gradient(145deg, #FF6F61, #FF4081);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.modern-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #taskList button {
     background-color: #FF0000;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 5px 10px;
     color: white;
     cursor: pointer;
     margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+#taskList button:hover {
+    background-color: #ff4d4d;
 }
 
 #result, #previousResults {
