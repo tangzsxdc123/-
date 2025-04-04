@@ -4,44 +4,25 @@ const generateButton = document.getElementById('generateButton');
 const viewHistoryButton = document.getElementById('viewHistoryButton');
 const resultDiv = document.getElementById('result');
 const previousResultsDiv = document.getElementById('previousResults');
-const addNewTaskButton = document.getElementById('addNewTaskButton');
-
 let tasks = JSON.parse(localStorage.getItem('taskList')) || [];
 
-// ฟังก์ชันโหลดงานทั้งหมดจาก localStorage หรือ Google Sheets
+// ฟังก์ชันโหลดงานทั้งหมดจาก localStorage
 function loadTasks() {
-    taskSelector.innerHTML = '';
+    taskSelector.innerHTML = '';  // ล้างตัวเลือกทั้งหมด
     tasks.forEach(task => {
         const option = document.createElement('option');
         option.value = task.name;
         option.textContent = `${task.name} (คิวสูงสุด ${task.maxQueue})`;
-        taskSelector.appendChild(option);
+        taskSelector.appendChild(option);  // เพิ่มตัวเลือกงาน
     });
 }
 
-// ฟังก์ชันบันทึกงานทั้งหมดลง localStorage
+// ฟังก์ชันบันทึกงานลง localStorage
 function saveTasks() {
     localStorage.setItem('taskList', JSON.stringify(tasks));
 }
 
-// ฟังก์ชันเพิ่มงานใหม่
-addNewTaskButton.addEventListener('click', () => {
-    const taskName = prompt('กรุณากรอกชื่อของงานใหม่');
-    const maxQueue = parseInt(prompt('กรุณากรอกจำนวนคิวสูงสุด'));
-
-    if (!taskName || isNaN(maxQueue)) {
-        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-        return;
-    }
-
-    const newTask = { name: taskName, maxQueue, history: [] };
-    tasks.push(newTask);
-    saveTasks();
-    loadTasks();
-    saveTaskToSheet(newTask);  // ส่งงานใหม่ไปยัง Google Sheets
-});
-
-// ฟังก์ชันสำหรับสุ่มคิว
+// ฟังก์ชันสุ่มคิว
 generateButton.addEventListener('click', () => {
     const selectedTaskName = taskSelector.value;
     const name = nameInput.value.trim();
@@ -54,7 +35,6 @@ generateButton.addEventListener('click', () => {
     const task = tasks.find(t => t.name === selectedTaskName);
     if (!task) return;
 
-    // ตรวจสอบว่าชื่อนี้สุ่มไปแล้วหรือยัง
     if (task.history && task.history.some(entry => entry.name === name)) {
         alert('คุณได้สุ่มคิวไปแล้ว ไม่สามารถสุ่มซ้ำได้!');
         return;
@@ -65,20 +45,17 @@ generateButton.addEventListener('click', () => {
 
     const interval = setInterval(() => {
         currentNumber = Math.floor(Math.random() * task.maxQueue) + 1;
-        resultDiv.innerHTML = `<div class="final-result">กำลังสุ่ม: ${currentNumber}</div>`;
+        resultDiv.innerHTML = `กำลังสุ่ม: ${currentNumber}`;
     }, 80);
 
     setTimeout(() => {
         clearInterval(interval);
-        resultDiv.innerHTML = `<div class="final-result highlight">คิวที่สุ่มได้: <strong>${currentNumber}</strong></div>`;
+        resultDiv.innerHTML = `คิวที่สุ่มได้: ${currentNumber}`;
 
-        if (!task.history) task.history = [];
         task.history.push({ name, queueNumber: currentNumber, timestamp: new Date().toLocaleString() });
 
-        saveTasks();  // บันทึกข้อมูลหลังจากสุ่มสำเร็จ
-        saveTaskToSheet(task);  // อัปเดตข้อมูลลง Google Sheets
-
-        nameInput.value = '';  // ล้างชื่อที่กรอกหลังจากสุ่มสำเร็จ
+        saveTasks();
+        nameInput.value = '';
     }, 3000);
 });
 
@@ -93,7 +70,6 @@ viewHistoryButton.addEventListener('click', () => {
     }
 
     previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มของ ${selectedTaskName}</h3>`;
-    
     task.history.forEach(entry => {
         const entryDiv = document.createElement('div');
         entryDiv.innerHTML = `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
@@ -101,37 +77,5 @@ viewHistoryButton.addEventListener('click', () => {
     });
 });
 
-// ฟังก์ชันโหลดข้อมูลจาก Google Sheets
-const API_URL = "https://script.google.com/macros/s/AKfycbxWUcy8B-6_Xpur8WWwujASjQRb0SWp9hDGu2i8Y9sbGBxjf8Wjgu0kDk1RNgbMg9o/exec";
-async function loadTasksFromSheet() {
-    try {
-        const response = await fetch(API_URL);
-        const tasksFromSheet = await response.json();
-        tasks = tasksFromSheet;  // รับข้อมูลจาก Google Sheets
-        localStorage.setItem('taskList', JSON.stringify(tasks));  // บันทึกลง localStorage
-        loadTasks();  // อัปเดต UI
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการโหลดงาน:', error);
-    }
-}
-
-// ฟังก์ชันบันทึกข้อมูลงานใหม่ลง Google Sheets
-async function saveTaskToSheet(task) {
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(task)
-        });
-
-        const result = await response.json();
-        if (result.status === "success") {
-            loadTasksFromSheet();  // โหลดข้อมูลใหม่หลังจากบันทึกสำเร็จ
-        }
-    } catch (error) {
-        console.error('เกิดข้อผิดพลาดในการบันทึกงาน:', error);
-    }
-}
-
-// เรียกใช้ฟังก์ชันในการโหลดงานจาก Google Sheets เมื่อหน้าเว็บโหลด
-loadTasksFromSheet();
+// เรียกใช้งาน loadTasks() เมื่อหน้าเว็บโหลด
+loadTasks();
