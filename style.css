@@ -10,54 +10,49 @@ body {
 
 #app {
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    width: 700px;
+    width: 90%;
+    max-width: 450px;
     text-align: center;
+    position: relative;
 }
 
 h1 {
     font-family: 'Fugaz One', cursive;
     color: #FF4081;
+    margin-bottom: 10px;
 }
 
-.sparkle-button {
+.styled-button {
     background-color: #FF6F61;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s;
+    margin-top: 10px;
 }
 
-.sparkle-button:hover {
+.styled-button:hover {
     background-color: #FF4081;
 }
 
-.styled-input {
+.styled-input, .styled-select {
     padding: 10px;
-    width: 80%;
+    width: 100%;
     border: 1px solid #FF6F61;
     border-radius: 8px;
     margin-bottom: 15px;
     font-size: 14px;
 }
 
-.final-result {
-    font-size: 24px;
+.manage-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
     color: #FF4081;
-    animation: sparkle 0.5s infinite alternate;
-}
-
-@keyframes sparkle {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-}
-
-.highlight {
-    background-color: #FFFACD;
-    border-radius: 10px;
-    padding: 10px;
+    font-size: 18px;
 }
