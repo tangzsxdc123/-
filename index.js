@@ -82,3 +82,40 @@ viewHistoryButton.addEventListener('click', () => {
 });
 
 loadTasks();
+
+const API_URL = "https://script.google.com/macros/s/AKfycbyd9mJSPBHAYZPvHRW87YIk7I7g7YBpeiI1_XgidOQcxGTj7hIGtzH1zqjPGtKOwjtS/exec";
+
+// ฟังก์ชันโหลดข้อมูลงานทั้งหมดจาก Google Sheets
+async function loadTasksFromSheet() {
+    try {
+        const response = await fetch(API_URL);
+        const tasks = await response.json();
+        localStorage.setItem('taskList', JSON.stringify(tasks));
+        loadTasks();
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการโหลดงาน:', error);
+    }
+}
+
+// ฟังก์ชันส่งข้อมูลงานใหม่ไปยัง Google Sheets
+async function saveTaskToSheet(task) {
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(task)
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+            loadTasksFromSheet(); // โหลดข้อมูลใหม่หลังจากบันทึกสำเร็จ
+        }
+    } catch (error) {
+        console.error('เกิดข้อผิดพลาดในการบันทึกงาน:', error);
+    }
+}
+
+loadTasksFromSheet(); // เรียกเมื่อหน้าเว็บถูกโหลด
+
+
+
