@@ -1,6 +1,6 @@
 body {
+    background-color: #F0F8FF;
     font-family: 'Kanit', sans-serif;
-    background-color: #E0F2FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,32 +12,9 @@ body {
     background: white;
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 700px;
     text-align: center;
-}
-
-input, select {
-    padding: 15px;
-    width: 85%;
-    margin: 10px 0;
-    border: 2px solid #FF6F61;
-    border-radius: 10px;
-    font-size: 16px;
-}
-
-button {
-    background-color: #FF6F61;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-button:hover {
-    background-color: #FF4081;
 }
 
 .flashing {
@@ -45,6 +22,6 @@ button:hover {
 }
 
 @keyframes flashing {
-    0% { background-color: yellow; }
-    100% { background-color: pink; }
+    0% { background-color: #ff6f61; }
+    100% { background-color: #ffa726; }
 }
