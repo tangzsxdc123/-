@@ -1,37 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>สุ่มคิวงาน</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html>
 <head>
-    <title>สุ่มคิวงาน</title>
+    <title>ร้านยยมือทองกดบัตร</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
-        <h1>สุ่มคิวงาน</h1>
-        <select id="taskSelector">
-            <option value="งาน A">งาน A</option>
-            <option value="งาน B">งาน B</option>
-            <option value="งาน C">งาน C</option>
-        </select>
-        <input id="nameInput" placeholder="กรอกชื่อของคุณ">
-        <button id="generateButton">สุ่มคิว</button>
+        <div class="header">
+            <h1>🎫 ร้านยยมือทองกดบัตร</h1>
+            <p>สุ่มคิวงานพร้อมแสงสีแบบคอนเสิร์ต!</p>
+        </div>
+
+        <div class="form-container">
+            <select id="taskSelector">
+                <option value="คอนเสิร์ต A">คอนเสิร์ต A</option>
+                <option value="คอนเสิร์ต B">คอนเสิร์ต B</option>
+                <option value="คอนเสิร์ต C">คอนเสิร์ต C</option>
+            </select>
+            <input id="nameInput" placeholder="กรอกชื่อของคุณ">
+            <button id="generateButton">สุ่มคิว</button>
+        </div>
+
         <div id="result"></div>
         <div id="previousResults"></div>
     </div>
     <script src="script.js"></script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
 </body>
 </html>
