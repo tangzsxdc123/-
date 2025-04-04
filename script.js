@@ -6,6 +6,7 @@ const newTaskInput = document.getElementById('newTaskInput');
 const queueCountInput = document.getElementById('queueCountInput');
 const taskList = document.getElementById('taskList');
 const resultDiv = document.getElementById('result');
+const previousResultsDiv = document.getElementById('previousResults');
 
 let tasks = JSON.parse(localStorage.getItem('taskList')) || [];
 
@@ -41,6 +42,13 @@ function deleteTask(taskName) {
     loadTasks();
 }
 
+function displayPreviousResults(task) {
+    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มคิวของ ${task.name}</h3>`;
+    task.history.forEach(result => {
+        previousResultsDiv.innerHTML += `<p>ชื่อ: ${result.name} | คิวที่สุ่มได้: ${result.queueNumber} | เวลา: ${result.timestamp}</p>`;
+    });
+}
+
 addTaskButton.addEventListener('click', () => {
     const newTaskName = newTaskInput.value.trim();
     const maxQueue = parseInt(queueCountInput.value.trim(), 10);
@@ -67,6 +75,11 @@ generateButton.addEventListener('click', () => {
         return;
     }
 
+    if (task.history.some(record => record.name === name)) {
+        alert('ชื่อนี้สุ่มไปแล้ว!');
+        return;
+    }
+
     const availableNumbers = Array.from({ length: task.maxQueue }, (_, i) => i + 1)
         .filter(num => !task.usedNumbers.includes(num));
 
@@ -75,17 +88,14 @@ generateButton.addEventListener('click', () => {
         return;
     }
 
-    let interval = 0;
     let count = 0;
-    const duration = 5000; // ลุ้นเป็นเวลา 5 วินาที
+    const duration = 5000;
     const intervalDuration = 100;
-
     const randomIndex = Math.floor(Math.random() * availableNumbers.length);
     const randomQueue = availableNumbers[randomIndex];
 
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
         count += intervalDuration;
-
         const fakeQueue = Math.floor(Math.random() * task.maxQueue) + 1;
         resultDiv.innerHTML = `กำลังสุ่มคิว... <strong>${fakeQueue}</strong>`;
         resultDiv.classList.add('flashing');
@@ -94,8 +104,13 @@ generateButton.addEventListener('click', () => {
             clearInterval(interval);
             resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
             resultDiv.classList.remove('flashing');
+
             task.usedNumbers.push(randomQueue);
+            task.history.push({ name, queueNumber: randomQueue, timestamp: new Date().toLocaleString() });
+
             saveTasks();
+            displayPreviousResults(task);
+            nameInput.value = '';
         }
     }, intervalDuration);
 });
