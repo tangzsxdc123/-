@@ -1,6 +1,6 @@
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #E0F2FF;
+    background-color: #F0F8FF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,6 +17,36 @@ body {
     text-align: center;
 }
 
+.header h1 {
+    color: #FF6F61;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #707070;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    padding: 20px;
+    border: 1px solid #FF6F61;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background-color: #FFF0F0;
+}
+
+.select-container, .input-container, .add-task-container {
+    margin-bottom: 15px;
+}
+
+input, select {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #FF6F61;
+    border-radius: 8px;
+}
+
 button {
     background-color: #FF6F61;
     color: white;
@@ -24,9 +54,19 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
 }
 
 button:hover {
     background-color: #FF4081;
+}
+
+#taskList button {
+    background-color: #FF0000;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
 }
