@@ -1,18 +1,11 @@
 body {
-    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4);
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
     font-family: 'Kanit', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    animation: gradient 10s infinite alternate;
-}
-
-@keyframes gradient {
-    0% {background-color: #ff9a9e;}
-    50% {background-color: #fad0c4;}
-    100% {background-color: #ff9a9e;}
 }
 
 #app {
@@ -22,7 +15,11 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     width: 700px;
     text-align: center;
-    position: relative;
+}
+
+h1 {
+    font-family: 'Fugaz One', cursive;
+    color: #FF4081;
 }
 
 .sparkle-button {
@@ -30,7 +27,7 @@ body {
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -39,9 +36,28 @@ body {
     background-color: #FF4081;
 }
 
-.manage-link {
-    display: block;
-    margin-top: 20px;
-    text-decoration: none;
+.styled-input {
+    padding: 10px;
+    width: 80%;
+    border: 1px solid #FF6F61;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.final-result {
+    font-size: 24px;
     color: #FF4081;
+    animation: sparkle 0.5s infinite alternate;
+}
+
+@keyframes sparkle {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.highlight {
+    background-color: #FFFACD;
+    border-radius: 10px;
+    padding: 10px;
 }
