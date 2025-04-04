@@ -17,6 +17,10 @@ function loadTasks() {
     });
 }
 
+function saveTasks() {
+    localStorage.setItem('taskList', JSON.stringify(tasks));
+}
+
 generateButton.addEventListener('click', () => {
     const selectedTaskName = taskSelector.value;
     const name = nameInput.value.trim();
@@ -27,8 +31,13 @@ generateButton.addEventListener('click', () => {
     }
 
     const task = tasks.find(t => t.name === selectedTaskName);
-
     if (!task) return;
+
+    // ตรวจสอบว่าชื่อนี้สุ่มไปแล้วหรือยัง
+    if (task.history && task.history.some(entry => entry.name === name)) {
+        alert('คุณได้สุ่มคิวไปแล้ว ไม่สามารถสุ่มซ้ำได้!');
+        return;
+    }
 
     let currentNumber = 1;
     resultDiv.innerHTML = "กำลังสุ่มคิว...";
@@ -44,8 +53,27 @@ generateButton.addEventListener('click', () => {
 
         if (!task.history) task.history = [];
         task.history.push({ name, queueNumber: currentNumber, timestamp: new Date().toLocaleString() });
-        localStorage.setItem('taskList', JSON.stringify(tasks));
+
+        saveTasks();  // บันทึกข้อมูลหลังจากสุ่มสำเร็จ
+
+        nameInput.value = '';  // ล้างชื่อที่กรอกหลังจากสุ่มสำเร็จ
     }, 3000);
+});
+
+viewHistoryButton.addEventListener('click', () => {
+    const selectedTaskName = taskSelector.value;
+    const task = tasks.find(t => t.name === selectedTaskName);
+
+    if (!task || !task.history || task.history.length === 0) {
+        previousResultsDiv.innerHTML = `<p>ไม่มีประวัติการสุ่มสำหรับงานนี้</p>`;
+        return;
+    }
+
+    previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มของ ${selectedTaskName}</h3>`;
+    
+    task.history.forEach(entry => {
+        previousResultsDiv.innerHTML += `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
+    });
 });
 
 loadTasks();
