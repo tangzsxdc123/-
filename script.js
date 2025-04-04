@@ -51,37 +51,18 @@ addTaskButton.addEventListener('click', () => {
         return;
     }
 
-    tasks.push({ name: newTaskName, maxQueue, usedNumbers: [], history: [] });
+    if (tasks.some(task => task.name === newTaskName)) {
+        alert('งานนี้มีอยู่แล้ว!');
+        return;
+    }
+
+    const newTask = { name: newTaskName, maxQueue, usedNumbers: [], history: [] };
+    tasks.push(newTask);
     saveTasks();
     loadTasks();
+
     newTaskInput.value = '';
     queueCountInput.value = '';
 });
 
-generateButton.addEventListener('click', () => {
-    const selectedTaskName = taskSelector.value;
-    const task = tasks.find(t => t.name === selectedTaskName);
-    const name = nameInput.value.trim();
-
-    if (!task || !name) {
-        alert('กรุณาเลือกงานและกรอกชื่อของคุณ');
-        return;
-    }
-
-    if (task.history.some(record => record.name === name)) {
-        alert('ชื่อนี้สุ่มไปแล้ว!');
-        return;
-    }
-
-    const availableNumbers = Array.from({ length: task.maxQueue }, (_, i) => i + 1)
-        .filter(num => !task.usedNumbers.includes(num));
-
-    if (availableNumbers.length === 0) {
-        alert('คิวเต็มหมดแล้ว!');
-        return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-    const randomQueue = availableNumbers[randomIndex];
-    task.usedNumbers.push(randomQueue);
-    task.history.push({
+loadTasks();
