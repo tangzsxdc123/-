@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ร้านยยมือทองกดบัตร - จัดการงาน</title>
+    <title>จัดการงาน - ร้านยยมือทองกดบัตร</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,19 +11,19 @@
             <p>เพิ่มหรือลบงานที่คุณต้องการ</p>
         </div>
         
-        <div class="add-task-container">
-            <input id="newTaskInput" placeholder="เพิ่มงานใหม่...">
-            <input id="queueCountInput" placeholder="จำนวนคิว (ตัวเลข)">
-            <button id="addTaskButton" class="sparkle-button">➕ เพิ่มงานใหม่</button>
-        </div>
-        
-        <div>
-            <label for="taskSelector">เลือกงานที่ต้องการลบ:</label>
-            <select id="taskSelector"></select>
-            <button id="deleteTaskButton" class="sparkle-button">🗑️ ลบงาน</button>
+        <div class="form-container">
+            <input id="newTaskInput" placeholder="เพิ่มงานใหม่..." class="styled-input">
+            <input id="queueCountInput" placeholder="จำนวนคิว (ตัวเลข)" class="styled-input">
+            <button id="addTaskButton" class="styled-button">➕ เพิ่มงานใหม่</button>
         </div>
 
-        <a href="index.html" class="manage-link">⬅️ กลับไปที่หน้าแรก</a>
+        <div>
+            <label for="taskSelector">เลือกงานที่ต้องการลบ:</label>
+            <select id="taskSelector" class="styled-select"></select>
+            <button id="deleteTaskButton" class="styled-button delete-button">🗑️ ลบงาน</button>
+        </div>
+
+        <a href="index.html" class="manage-link">🔙 กลับไปที่หน้าแรก</a>
     </div>
     <script src="manage.js"></script>
 </body>
