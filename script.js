@@ -3,6 +3,7 @@ const nameInput = document.getElementById('nameInput');
 const generateButton = document.getElementById('generateButton');
 const addTaskButton = document.getElementById('addTaskButton');
 const viewHistoryButton = document.getElementById('viewHistoryButton');
+const deleteTaskButton = document.getElementById('deleteTaskButton');
 const newTaskInput = document.getElementById('newTaskInput');
 const queueCountInput = document.getElementById('queueCountInput');
 const taskList = document.getElementById('taskList');
@@ -40,6 +41,14 @@ viewHistoryButton.addEventListener('click', () => {
     if (task) displayPreviousResults(task);
 });
 
+deleteTaskButton.addEventListener('click', () => {
+    const selectedTaskName = taskSelector.value;
+    tasks = tasks.filter(task => task.name !== selectedTaskName);
+    saveTasks();
+    loadTasks();
+    previousResultsDiv.innerHTML = '';
+});
+
 addTaskButton.addEventListener('click', () => {
     const newTaskName = newTaskInput.value.trim();
     const maxQueue = parseInt(queueCountInput.value.trim(), 10);
@@ -54,26 +63,6 @@ addTaskButton.addEventListener('click', () => {
     loadTasks();
     newTaskInput.value = '';
     queueCountInput.value = '';
-});
-
-generateButton.addEventListener('click', () => {
-    const selectedTaskName = taskSelector.value;
-    const task = tasks.find(t => t.name === selectedTaskName);
-    const name = nameInput.value.trim();
-
-    if (!task || !name) {
-        alert('กรุณาเลือกงานและกรอกชื่อของคุณ');
-        return;
-    }
-
-    const randomQueue = Math.floor(Math.random() * task.maxQueue) + 1;
-
-    task.usedNumbers.push(randomQueue);
-    task.history.push({ name, queueNumber: randomQueue, timestamp: new Date().toLocaleString() });
-    saveTasks();
-
-    resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${randomQueue}</strong>`;
-    nameInput.value = '';
 });
 
 loadTasks();
