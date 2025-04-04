@@ -4,9 +4,11 @@ const generateButton = document.getElementById('generateButton');
 const viewHistoryButton = document.getElementById('viewHistoryButton');
 const resultDiv = document.getElementById('result');
 const previousResultsDiv = document.getElementById('previousResults');
+const addNewTaskButton = document.getElementById('addNewTaskButton');
 
 let tasks = JSON.parse(localStorage.getItem('taskList')) || [];
 
+// ฟังก์ชันโหลดงานทั้งหมดจาก localStorage หรือ Google Sheets
 function loadTasks() {
     taskSelector.innerHTML = '';
     tasks.forEach(task => {
@@ -17,10 +19,29 @@ function loadTasks() {
     });
 }
 
+// ฟังก์ชันบันทึกงานทั้งหมดลง localStorage
 function saveTasks() {
     localStorage.setItem('taskList', JSON.stringify(tasks));
 }
 
+// ฟังก์ชันเพิ่มงานใหม่
+addNewTaskButton.addEventListener('click', () => {
+    const taskName = prompt('กรุณากรอกชื่อของงานใหม่');
+    const maxQueue = parseInt(prompt('กรุณากรอกจำนวนคิวสูงสุด'));
+
+    if (!taskName || isNaN(maxQueue)) {
+        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+        return;
+    }
+
+    const newTask = { name: taskName, maxQueue, history: [] };
+    tasks.push(newTask);
+    saveTasks();
+    loadTasks();
+    saveTaskToSheet(newTask);  // ส่งงานใหม่ไปยัง Google Sheets
+});
+
+// ฟังก์ชันสำหรับสุ่มคิว
 generateButton.addEventListener('click', () => {
     const selectedTaskName = taskSelector.value;
     const name = nameInput.value.trim();
@@ -55,11 +76,13 @@ generateButton.addEventListener('click', () => {
         task.history.push({ name, queueNumber: currentNumber, timestamp: new Date().toLocaleString() });
 
         saveTasks();  // บันทึกข้อมูลหลังจากสุ่มสำเร็จ
+        saveTaskToSheet(task);  // อัปเดตข้อมูลลง Google Sheets
 
         nameInput.value = '';  // ล้างชื่อที่กรอกหลังจากสุ่มสำเร็จ
     }, 3000);
 });
 
+// ฟังก์ชันดูประวัติการสุ่มคิว
 viewHistoryButton.addEventListener('click', () => {
     const selectedTaskName = taskSelector.value;
     const task = tasks.find(t => t.name === selectedTaskName);
@@ -71,9 +94,6 @@ viewHistoryButton.addEventListener('click', () => {
 
     previousResultsDiv.innerHTML = `<h3>ประวัติการสุ่มของ ${selectedTaskName}</h3>`;
     
-    // เคลียร์เนื้อหาเก่าก่อนแสดงใหม่
-    previousResultsDiv.innerHTML = '';
-
     task.history.forEach(entry => {
         const entryDiv = document.createElement('div');
         entryDiv.innerHTML = `<p>ชื่อ: ${entry.name} | คิวที่สุ่มได้: ${entry.queueNumber} | เวลา: ${entry.timestamp}</p>`;
@@ -81,23 +101,21 @@ viewHistoryButton.addEventListener('click', () => {
     });
 });
 
-loadTasks();
-
-const API_URL = "https://script.google.com/macros/library/d/17N-8RsbdTYfF04KjBxxUAuU0BFUTx-KOe0Iq51gu7LON-WWctbey69Au/3";
-
-// ฟังก์ชันโหลดข้อมูลงานทั้งหมดจาก Google Sheets
+// ฟังก์ชันโหลดข้อมูลจาก Google Sheets
+const API_URL = "https://script.google.com/macros/s/AKfycbxWUcy8B-6_Xpur8WWwujASjQRb0SWp9hDGu2i8Y9sbGBxjf8Wjgu0kDk1RNgbMg9o/exec";
 async function loadTasksFromSheet() {
     try {
         const response = await fetch(API_URL);
-        const tasks = await response.json();
-        localStorage.setItem('taskList', JSON.stringify(tasks));
-        loadTasks();
+        const tasksFromSheet = await response.json();
+        tasks = tasksFromSheet;  // รับข้อมูลจาก Google Sheets
+        localStorage.setItem('taskList', JSON.stringify(tasks));  // บันทึกลง localStorage
+        loadTasks();  // อัปเดต UI
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการโหลดงาน:', error);
     }
 }
 
-// ฟังก์ชันส่งข้อมูลงานใหม่ไปยัง Google Sheets
+// ฟังก์ชันบันทึกข้อมูลงานใหม่ลง Google Sheets
 async function saveTaskToSheet(task) {
     try {
         const response = await fetch(API_URL, {
@@ -108,14 +126,12 @@ async function saveTaskToSheet(task) {
 
         const result = await response.json();
         if (result.status === "success") {
-            loadTasksFromSheet(); // โหลดข้อมูลใหม่หลังจากบันทึกสำเร็จ
+            loadTasksFromSheet();  // โหลดข้อมูลใหม่หลังจากบันทึกสำเร็จ
         }
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการบันทึกงาน:', error);
     }
 }
 
-loadTasksFromSheet(); // เรียกเมื่อหน้าเว็บถูกโหลด
-
-
-
+// เรียกใช้ฟังก์ชันในการโหลดงานจาก Google Sheets เมื่อหน้าเว็บโหลด
+loadTasksFromSheet();
