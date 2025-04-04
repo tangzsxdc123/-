@@ -1,7 +1,5 @@
 body {
-    background-image: url('https://cdn.pixabay.com/photo/2016/11/23/14/45/audience-1850119_1280.jpg');
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: #f0f0f0;
     font-family: 'Kanit', sans-serif;
     display: flex;
     justify-content: center;
@@ -11,7 +9,7 @@ body {
 }
 
 #app {
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -19,48 +17,10 @@ body {
     text-align: center;
 }
 
-.header h1 {
-    font-family: 'Fugaz One', cursive;
-    color: #FF4081;
-    margin-bottom: 5px;
-    font-size: 32px;
-}
-
-.header p {
-    color: #707070;
-    margin-bottom: 20px;
-}
-
-input, select {
-    padding: 10px;
-    width: 75%;
-    margin: 10px 0;
-    border: 2px solid #FF4081;
-    border-radius: 10px;
-    font-size: 14px;
-}
-
-.sparkle-button {
-    background-color: #FF6F61;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    font-size: 14px;
-}
-
-.sparkle-button:hover {
-    background-color: #FF4081;
-}
-
-#result, #previousResults {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
+.manage-link {
     margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: block;
+    text-decoration: none;
+    color: #FF4081;
+    font-size: 18px;
 }
