@@ -8,21 +8,23 @@
     <div id="app">
         <div class="header">
             <h1>🎫 ร้านยยมือทองกดบัตร</h1>
-            <p>สุ่มคิวงานพร้อมแสงสีแบบคอนเสิร์ต!</p>
+            <p>สุ่มคิวงาน พร้อมแสงสีแบบคอนเสิร์ต!</p>
         </div>
 
         <div class="form-container">
-            <select id="taskSelector">
-                <option value="คอนเสิร์ต A">คอนเสิร์ต A</option>
-                <option value="คอนเสิร์ต B">คอนเสิร์ต B</option>
-                <option value="คอนเสิร์ต C">คอนเสิร์ต C</option>
-            </select>
+            <select id="taskSelector"></select>
             <input id="nameInput" placeholder="กรอกชื่อของคุณ">
             <button id="generateButton">สุ่มคิว</button>
         </div>
 
         <div id="result"></div>
         <div id="previousResults"></div>
+
+        <!-- ส่วนเพิ่มงานใหม่ -->
+        <div id="newTaskSection">
+            <input id="newTaskInput" placeholder="เพิ่มงานใหม่...">
+            <button id="addTaskButton">เพิ่มงานใหม่</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
