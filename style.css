@@ -11,7 +11,7 @@ body {
 }
 
 #app {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -40,45 +40,40 @@ input, select {
     font-size: 14px;
 }
 
-/* ปุ่มแบบทันสมัย */
-.modern-button {
-    background: linear-gradient(145deg, #FF4081, #FF6F61);
-    border: none;
-    border-radius: 12px;
-    padding: 10px 20px;
+/* ปุ่มแบบวิบวับ */
+.sparkle-button {
+    background-color: #FF6F61;
     color: white;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-transform: uppercase;
-    font-family: 'Kanit', sans-serif;
-}
-
-.modern-button:hover {
-    background: linear-gradient(145deg, #FF6F61, #FF4081);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.modern-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#taskList button {
-    background-color: #FF0000;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    padding: 5px 10px;
-    color: white;
     cursor: pointer;
-    margin-left: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
 }
 
-#taskList button:hover {
-    background-color: #ff4d4d;
+.sparkle-button:hover {
+    background-color: #FF4081;
+}
+
+/* เอฟเฟกต์วิบวับ */
+.sparkle-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, white, transparent);
+    opacity: 0.6;
+    animation: sparkle 2s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(0); }
+    50% { transform: scale(1); }
 }
 
 #result, #previousResults {
@@ -87,4 +82,13 @@ input, select {
     border-radius: 10px;
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.flashing {
+    animation: flashing 0.1s infinite alternate;
+}
+
+@keyframes flashing {
+    0% { background-color: #ff6f61; }
+    100% { background-color: #ff4081; }
 }
