@@ -36,12 +36,17 @@ generateButton.addEventListener('click', () => {
     const interval = setInterval(() => {
         currentNumber = Math.floor(Math.random() * task.maxQueue) + 1;
         resultDiv.innerHTML = `<strong>กำลังสุ่ม: ${currentNumber}</strong>`;
-    }, 100);
+    }, 80);
 
     setTimeout(() => {
         clearInterval(interval);
-        resultDiv.innerHTML = `คิวที่สุ่มได้: <strong>${currentNumber}</strong>`;
-        
+        resultDiv.innerHTML = `<div class="final-result">คิวที่สุ่มได้: <strong>${currentNumber}</strong></div>`;
+        resultDiv.classList.add("highlight");
+
+        setTimeout(() => {
+            resultDiv.classList.remove("highlight");
+        }, 2000);
+
         if (!task.history) task.history = [];
         task.history.push({ name, queueNumber: currentNumber, timestamp: new Date().toLocaleString() });
         localStorage.setItem('taskList', JSON.stringify(tasks));
